@@ -27,3 +27,22 @@ unit("Wh")  = unit("W") *unit("h");
 unit("kWh") = unit("kW")*unit("h");
 unit("MWh") = unit("MW")*unit("h");
 unit("GWh") = unit("GW")*unit("h");
+
+% volume
+unit("m3") = 1.;
+
+% mass
+unit("kg") = 1.;
+
+% surface area
+unit("m2") = 1.;
+
+% length
+unit("m") = 1.;
+
+% mol
+unit("mol") = 1.;
+
+% temperature
+unit("K") = 1.;
+
