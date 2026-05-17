@@ -39,17 +39,24 @@ aSupplyTransport = 1-(efficiencyBattery*efficiencyHeater*efficiencyCable); % Dis
 aInjection = 0; % Overall dissipation coefficient. This is ignored at the moment. 
 
 %overall and initial conditions
-EStorageMax     = 7000*unit("kWh");             % Maximum energy
+EStorageMax     = 7000*unit("kWh");             % *Maximum energy
 EStorageMin     = 0.0*unit("kWh");              % Minimum energy
 EStorageInitial = 2.0*unit("kWh");              % Initial energy
-bStorage        = 1e-6/unit("s");               % Storage dissipation coefficient
-m_w_0 = 4.58e2;                                 %initial mass of water stored in sorption
+bStorage        = 0/unit("s");                  % *Storage dissipation coefficient. This was a default. Set to 0 since we model it our own way. 
+
+m_w_0 = 4.58e2;                                 % *initial mass of water stored in sorption
+T_tank = 0;                                     % temperature of the tank (dynamic)
+T_ambient = (11.2+273.15)*unit("K");            % *expected ambient temperature
+T_w = (50+273.15)*unit("K");                    % *average temperature of water in supply and return flows
+T_s_0 = T_ambient;                              % *initial sorbent temperature.
+T_s = T_s_0;                                    % sorption temperature (dynamic)
 
 %tank constants
 f_space = 1.2;                                  % *extra space factor for vapour flow, heat exchanger components, and packing imperfections
 t_wall = 0.005*unit("m");                       % *tank wall thickness
 rho_tank = 7850*unit("kg")/unit("m3");          % *density of tank wall material (steel in this case)
 c_tank = 502*unit("J")/(unit("kg")*unit("K"));  % *estimated specific heat capacity of steel 304 that forms the tank.
+h_tank = 1000;                                     % *convective heat transfer coefficient of reactor. 
 
 %sorption constants
 rho_bulk = 720*unit("kg")/unit("m3");           % *bulk density of sorption material.
@@ -62,7 +69,7 @@ E = 4.09e4*unit("J")/unit("mol");               % *sorption material activation 
 R = 8.314*unit("J")/(unit("mol")*unit("K"));    % universal gas constant.
 D_0 = 2.54e-4*unit("m2")/unit("s");             % *diffusivity pre-exponential factor for sorption material. 
 d_p = 4e-3*unit("m");                           % *sorption material bead diameter
-
+deltaH = 2.38E6*unit("J")/unit("kg");           % *adsorption/desorption enthalpy for material. 
 
 %calculated constants
 V_ads = EStorageMax/q_ads;                      % volume of silica gel.
@@ -75,12 +82,16 @@ m_tank = rho_tank*A_tank*t_wall;                % mass of the tank itself
 m_ads = rho_bulk*V_ads;                         % mass of adsorpents in the storage tank. 
 m_w_max = X_max*m_ads;                          % maximum mass of water stored in sorption     
 m_w_min = X_min*m_ads;                          % minimum mass of water stored in sorption
+m_eq = m_w_max;                                 % amount of water in the adsorbent in undisturbed state.
 
 C_s = m_ads*c_ads + m_w_min*c_w + m_tank*c_tank; % dry initial effective heat capacity of reactor system.
 
 k_0 = (15*D_0)/(d_p/2)^2;                       % base adsorption/desorption rate constant. 
 
-
+%function for k(T)
+function kT_s = k(T_s_in)
+    kT_s = k_0*exp(-E/(R*T_s_in));
+end
 % extraction system
 aExtraction = 0.1; % Dissipation coefficient
 
