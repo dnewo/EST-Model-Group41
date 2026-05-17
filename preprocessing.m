@@ -11,7 +11,7 @@ supplyUnit = "kW";
 % load the supply data
 Supply = loadSupplyData(supplyFile, timeUnit, supplyUnit);
 
-demandFile = "Team41_supplyData.csv";
+demandFile = "Team41_demandData.csv";
 demandUnit = "kW";
 
 % load the demand data
@@ -88,10 +88,7 @@ C_s = m_ads*c_ads + m_w_min*c_w + m_tank*c_tank; % dry initial effective heat ca
 
 k_0 = (15*D_0)/(d_p/2)^2;                       % base adsorption/desorption rate constant. 
 
-%function for k(T)
-function kT_s = k(T_s_in)
-    kT_s = k_0*exp(-E/(R*T_s_in));
-end
+
 % extraction system
 aExtraction = 0.1; % Dissipation coefficient
 
