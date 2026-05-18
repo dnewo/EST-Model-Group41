@@ -42,21 +42,18 @@ aInjection = 0; % Overall dissipation coefficient. This is ignored at the moment
 EStorageMax     = 7000*unit("kWh");             % *Maximum energy
 EStorageMin     = 0.0*unit("kWh");              % Minimum energy
 EStorageInitial = 2.0*unit("kWh");              % Initial energy
-bStorage        = 0/unit("s");                  % *Storage dissipation coefficient. This was a default. Set to 0 since we model it our own way. 
 
 m_w_0 = 4.58e2;                                 % *initial mass of water stored in sorption
-T_tank = 0;                                     % temperature of the tank (dynamic)
 T_ambient = (11.2+273.15)*unit("K");            % *expected ambient temperature
 T_w = (50+273.15)*unit("K");                    % *average temperature of water in supply and return flows
 T_s_0 = T_ambient;                              % *initial sorbent temperature.
-T_s = T_s_0;                                    % sorption temperature (dynamic)
 
 %tank constants
 f_space = 1.2;                                  % *extra space factor for vapour flow, heat exchanger components, and packing imperfections
 t_wall = 0.005*unit("m");                       % *tank wall thickness
 rho_tank = 7850*unit("kg")/unit("m3");          % *density of tank wall material (steel in this case)
 c_tank = 502*unit("J")/(unit("kg")*unit("K"));  % *estimated specific heat capacity of steel 304 that forms the tank.
-h_tank = 1000;                                     % *convective heat transfer coefficient of reactor. 
+h_tank = 1000;                                  % *convective heat transfer coefficient of reactor. 
 
 %sorption constants
 rho_bulk = 720*unit("kg")/unit("m3");           % *bulk density of sorption material.
