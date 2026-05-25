@@ -1,5 +1,5 @@
 % Post-processing script for the EST Simulink model. This script is invoked
-% after the Simulink model is finished running (stopFcn callback function).
+% after the Simulink model is finished running (stopFcn callback function).C
 
 close all;
 figure;
@@ -73,3 +73,39 @@ pie(ax, [EDirect, EfromExtraction, EBuy]/EtoDemandTransport);
 lgd = legend({"Direct from supply", "From storage", "Bought"});
 lgd.Layout.Tile = "south";
 title(sprintf("Delivered energy %3.2e [J]", EtoDemandTransport/unit('J')));
+
+
+%% EFFICIENCIES
+
+% Efficiency of the storage - energy sent into injection that is recovered during extraction (losses by storage)
+eta_storage = EfromExtraction / EtoInjection;
+
+% Fraction of injected storage energy that is lost inside the storage (double checks previous equation but by losses)
+storage_loss_fraction = EStorageDissipation / EtoInjection;
+
+% Energy delivered by the system excluding bought energy
+Edelivered_system = EDirect + EfromExtraction;
+
+% Overall system efficiency excluding bought energy
+eta_system_no_buy = Edelivered_system / EfromSupplyTransport;
+
+% Fraction of total demand-side energy covered by the system itself (E delivered by storage / E demand)
+demand_covered_by_system = Edelivered_system / EtoDemandTransport;
+
+% Fraction of total demand-side energy supplied by storage extraction
+storage_contribution = EfromExtraction / EtoDemandTransport;
+
+% Fraction of total demand-side energy that had to be bought externally
+buy_fraction = EBuy / EtoDemandTransport;
+
+% Fraction of supply energy that was used directly or sent to storage instead of sold
+solar_self_use = (EDirect + EtoInjection) / EfromSupplyTransport;
+
+fprintf('\n--- System performance results ---\n');
+fprintf('Storage efficiency = %.2f %%\n', eta_storage*100);
+fprintf('Storage loss fraction = %.2f %%\n', storage_loss_fraction*100);
+fprintf('System efficiency excluding bought energy = %.2f %%\n', eta_system_no_buy*100);
+fprintf('Demand covered by own system = %.2f %%\n', demand_covered_by_system*100);
+fprintf('Storage contribution to demand = %.2f %%\n', storage_contribution*100);
+fprintf('Bought energy fraction = %.2f %%\n', buy_fraction*100);
+fprintf('Solar self-use fraction = %.2f %%\n', solar_self_use*100);
