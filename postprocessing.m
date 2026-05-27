@@ -75,37 +75,41 @@ lgd.Layout.Tile = "south";
 title(sprintf("Delivered energy %3.2e [J]", EtoDemandTransport/unit('J')));
 
 
-%% EFFICIENCIES
+%% Efficiencies and performance indicators
 
-% Efficiency of the storage - energy sent into injection that is recovered during extraction (losses by storage)
-eta_storage = EfromExtraction / EtoInjection;
+% Total energy produced/received from the solar supply data, main input energy before selling, buying, battery losses, etc.
+ESolarSupply = trapz(tout, PSupply);
 
-% Fraction of injected storage energy that is lost inside the storage (double checks previous equation but by losses)
-storage_loss_fraction = EStorageDissipation / EtoInjection;
+% Energy delivered to the house by the system itself, excluding externally bought energy (energy sent directly +
+% recovered energy from storage)
+EDeliveredBySystem = EDirect + EfromExtraction;
 
-% Energy delivered by the system excluding bought energy
-Edelivered_system = EDirect + EfromExtraction;
 
-% Overall system efficiency excluding bought energy
-eta_system_no_buy = Edelivered_system / EfromSupplyTransport;
+% MOST IMPORTANT: fraction of solar supply energy that actually reaches the house as useful heat, including all storage
+% and transport losses
+eta_solar_to_house = EDeliveredBySystem / ESolarSupply;
 
-% Fraction of total demand-side energy covered by the system itself (E delivered by storage / E demand)
-demand_covered_by_system = Edelivered_system / EtoDemandTransport;
+% Storage-only efficiency:
+% Fraction of energy sent into injection that is later recovered during extraction, EXCLUDING battery/cable losses
+eta_storage_only = EfromExtraction / EtoInjection;
 
-% Fraction of total demand-side energy supplied by storage extraction
-storage_contribution = EfromExtraction / EtoDemandTransport;
+% Demand coverage by own system:fraction of total house demand covered by direct solar + storage
+demand_covered_by_system = EDeliveredBySystem / EtoDemandTransport;
 
-% Fraction of total demand-side energy that had to be bought externally
+% Bought energy fraction:
+% Fraction of total house demand that still had to be bought externally
 buy_fraction = EBuy / EtoDemandTransport;
 
-% Fraction of supply energy that was used directly or sent to storage instead of sold
-solar_self_use = (EDirect + EtoInjection) / EfromSupplyTransport;
+% Storage contribution to demand: fraction of total house demand covered by storage extraction only
+storage_contribution = EfromExtraction / EtoDemandTransport;
+
+% Solar self-use fraction: fraction of solar supply that is used directly or sent to storage instead of sold
+solar_self_use = 1 - ESell / ESolarSupply;
 
 fprintf('\n--- System performance results ---\n');
-fprintf('Storage efficiency = %.2f %%\n', eta_storage*100);
-fprintf('Storage loss fraction = %.2f %%\n', storage_loss_fraction*100);
-fprintf('System efficiency excluding bought energy = %.2f %%\n', eta_system_no_buy*100);
+fprintf('Solar-to-house efficiency = %.2f %%\n', eta_solar_to_house*100);
+fprintf('Storage-only efficiency = %.2f %%\n', eta_storage_only*100);
 fprintf('Demand covered by own system = %.2f %%\n', demand_covered_by_system*100);
-fprintf('Storage contribution to demand = %.2f %%\n', storage_contribution*100);
 fprintf('Bought energy fraction = %.2f %%\n', buy_fraction*100);
+fprintf('Storage contribution to demand = %.2f %%\n', storage_contribution*100);
 fprintf('Solar self-use fraction = %.2f %%\n', solar_self_use*100);

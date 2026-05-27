@@ -25,7 +25,7 @@ stopt  = min([Supply.Timeinfo.End, Demand.Timeinfo.End]);
 %% SYSTEM PARAMETERS
 
 %% Transport from Supply
-efficiencyBattery = 0.90;
+efficiencyBattery = 0.9;
 efficiencyHeater = 1.00;
 efficiencyCable = 0.98;
 
@@ -53,7 +53,7 @@ f_space = 1.2;                                  % *extra space factor for vapour
 t_wall = 0.005*unit("m");                       % *tank wall thickness
 rho_tank = 7850*unit("kg")/unit("m3");          % *density of tank wall material (steel in this case)
 c_tank = 502*unit("J")/(unit("kg")*unit("K"));  % *estimated specific heat capacity of steel 304 that forms the tank.
-h_tank = 1000;                                  % *convective heat transfer coefficient of reactor. 
+h_tank = 1;                                  % *convective heat transfer coefficient of reactor. 
 
 %sorption constants
 rho_bulk = 720*unit("kg")/unit("m3");           % *bulk density of sorption material.
