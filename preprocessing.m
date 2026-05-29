@@ -43,8 +43,7 @@ EStorageMax     = 7000*unit("kWh");             % *Maximum energy
 EStorageMin     = 0.0*unit("kWh");              % Minimum energy
 EStorageInitial = 2.0*unit("kWh");              % Initial energy
 
-m_w_0 = 4.58e2;                                 % *initial mass of water stored in sorption
-T_ambient = (11.2+273.15)*unit("K");            % *expected ambient temperature
+T_ambient = (8+273.15)*unit("K");            % *expected ambient temperature
 T_w = (50+273.15)*unit("K");                    % *average temperature of water in supply and return flows
 T_s_0 = T_ambient;                              % *initial sorbent temperature.
 
@@ -53,7 +52,13 @@ f_space = 1.2;                                  % *extra space factor for vapour
 t_wall = 0.005*unit("m");                       % *tank wall thickness
 rho_tank = 7850*unit("kg")/unit("m3");          % *density of tank wall material (steel in this case)
 c_tank = 502*unit("J")/(unit("kg")*unit("K"));  % *estimated specific heat capacity of steel 304 that forms the tank.
-h_tank = 1;                                  % *convective heat transfer coefficient of reactor. 
+
+%thermal conductivities of reactor
+k_steel = 16.3;                                 % W/(m K), thermal conductivity of stainless steel 304
+h_inside = 10;                                  % W/(m^2 K), rough internal effective value
+h_outside = 5;                                  % W/(m^2 K), natural convection to basement air                                   
+
+U_tank = 1 / (1/h_inside + t_wall/k_steel + 1/h_outside);
 
 %sorption constants
 rho_bulk = 720*unit("kg")/unit("m3");           % *bulk density of sorption material.
@@ -85,6 +90,7 @@ C_s = m_ads*c_ads + m_w_min*c_w + m_tank*c_tank; % dry initial effective heat ca
 
 k_0 = (15*D_0)/(d_p/2)^2;                       % base adsorption/desorption rate constant. 
 
+m_w_0 = m_w_min;                                 %*initial mass of water stored in sorption
 
 % extraction system
 aExtraction = 0.1; % Dissipation coefficient

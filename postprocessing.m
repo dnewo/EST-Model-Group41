@@ -113,3 +113,23 @@ fprintf('Demand covered by own system = %.2f %%\n', demand_covered_by_system*100
 fprintf('Bought energy fraction = %.2f %%\n', buy_fraction*100);
 fprintf('Storage contribution to demand = %.2f %%\n', storage_contribution*100);
 fprintf('Solar self-use fraction = %.2f %%\n', solar_self_use*100);
+
+
+%% Check for heat loss by tank (commented out for now but might be useful for report)
+%{
+% Net effect of the heat exchange by losses
+ETankExchangeSigned = trapz(tout, DStorage)
+
+%Heat lost from tank to ambient
+ETankLossOut = trapz(tout, max(DStorage, 0));
+
+%Heat gained from tank to ambient
+ETankGainIn = -trapz(tout, min(DStorage, 0));
+
+fprintf('Signed tank heat exchange = %.3e J\n', ETankExchangeSigned);
+fprintf('Heat lost from tank to ambient = %.3e J\n', ETankLossOut);
+fprintf('Heat gained from ambient to tank = %.3e J\n', ETankGainIn);
+fprintf('Net tank loss / injection = %.2f %%\n', ETankExchangeSigned/EtoInjection*100);
+fprintf('Gross heat lost / injection = %.2f %%\n', ETankLossOut/EtoInjection*100);
+fprintf('Heat gained / injection = %.2f %%\n', ETankGainIn/EtoInjection*100); 
+%}
