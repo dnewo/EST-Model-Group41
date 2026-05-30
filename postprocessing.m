@@ -114,6 +114,17 @@ fprintf('Bought energy fraction = %.2f %%\n', buy_fraction*100);
 fprintf('Storage contribution to demand = %.2f %%\n', storage_contribution*100);
 fprintf('Solar self-use fraction = %.2f %%\n', solar_self_use*100);
 
+%% Supply transport loss check (checks newly implemented transport to storage losses)
+
+% Energy dissipated in supply-side transport:
+% includes cable heating, battery losses and heater losses
+ESupplyTransportLoss = trapz(tout, DSupplyTransport);
+
+% Fraction of total solar supply lost in supply-side transport
+supply_transport_loss_fraction = ESupplyTransportLoss / ESolarSupply;
+
+fprintf('Supply transport loss fraction = %.2f %%\n', ...
+    supply_transport_loss_fraction*100);
 
 %% Check for heat loss by tank (commented out for now but might be useful for report)
 %{

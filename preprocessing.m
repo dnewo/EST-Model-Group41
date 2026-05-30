@@ -25,12 +25,23 @@ stopt  = min([Supply.Timeinfo.End, Demand.Timeinfo.End]);
 %% SYSTEM PARAMETERS
 
 %% Transport from Supply
-efficiencyBattery = 0.9;
-efficiencyHeater = 1.00;
-efficiencyCable = 0.98;
 
+% Battery and heater assumptions
+efficiencyBattery = 0.90;   
+efficiencyHeater  = 1.00;  
 
-aSupplyTransport = 1-(efficiencyBattery*efficiencyHeater*efficiencyCable); % Dissipation coefficient
+% Cable design assumptions
+L_cable = 20*unit("m");     % cable length from battery/PV system to heater
+V_system = 400;             % assumed DC voltage in V
+
+% Copper cable properties
+rho_copper = 1.72e-8;        % copper resistivity (at ~20 deg C) at Ohm m
+A_cable = 6e-6*unit("m2");   % 6mm^2 cross-section
+
+% Resistance per metre and total cable resistance
+Rprime_cable = rho_copper/A_cable;          
+R_cable = L_cable*Rprime_cable;               
+
 
 %% Injection and Storage System
 %* indicates constant paremeters that can be changed, while the others parameters are rooted in equations based on these.
@@ -42,6 +53,7 @@ aInjection = 0; % Overall dissipation coefficient. This is ignored at the moment
 EStorageMax     = 7000*unit("kWh");             % *Maximum energy
 EStorageMin     = 0.0*unit("kWh");              % Minimum energy
 EStorageInitial = 2.0*unit("kWh");              % Initial energy
+
 
 T_ambient = (8+273.15)*unit("K");            % *expected ambient temperature
 T_w = (50+273.15)*unit("K");                    % *average temperature of water in supply and return flows
