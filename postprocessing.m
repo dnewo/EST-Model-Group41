@@ -4,6 +4,7 @@
 close all;
 figure;
 
+
 %% Supply and demand
 subplot(2,2,1);
 plot(tout/unit("day"), PSupply/unit("W"));

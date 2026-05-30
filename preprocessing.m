@@ -107,5 +107,14 @@ m_w_0 = m_w_min;                                 %*initial mass of water stored 
 % extraction system
 aExtraction = 0.1; % Dissipation coefficient
 
+%% Transport to demand - heat exchanger (NOT YET IMPLEMENTED)
 % transport to demand
 aDemandTransport = 0.01; % Dissipation coefficient
+
+% IMPLEMENT LATER: Heat exchanger assumptions
+%{
+U_exchanger = 300;      % in W/(m^2 K) : overall heat transfer coefficient
+A_exchanger = 5;        % m^2 : effective heat exchange area
+
+UA_exchanger = U_exchanger*A_exchanger;  % in W/K
+%}
