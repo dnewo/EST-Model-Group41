@@ -118,3 +118,18 @@ A_exchanger = 5;        % m^2 : effective heat exchange area
 
 UA_exchanger = U_exchanger*A_exchanger;  % in W/K
 %}
+
+%% Transport to demand, pipe heat loss model
+
+% Pipe geometry assumptions
+L_pipe = 20*unit("m");                % m, estimated pipe length to demand
+d_pipe = 0.025*unit("m");             % m, outer pipe diameter
+
+% Pipe surface area
+A_pipe = pi*d_pipe*L_pipe;            % m^2
+
+% Effective heat-loss coefficient for insulated pipe
+U_pipe = 1.5;                         % W/(m^2 K)
+
+% Combined pipe heat-loss coefficient
+UA_pipe = U_pipe*A_pipe;              % [W/K]
