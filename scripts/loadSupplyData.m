@@ -13,7 +13,7 @@ function Supply = loadSupplyData(supplyFile, timeUnit, supplyUnit)
     %% 1. Remove the %{ and %} around the section.
     %% 2. Comment out the raw Supply line at the bottom of the function.
 
-    %{
+    
     rowsPerWeek = 672; % One week for 15 min data: 7 days * 24 hours * 4 samples/hour.
 
     % Extract time and power columns.
@@ -47,10 +47,10 @@ function Supply = loadSupplyData(supplyFile, timeUnit, supplyUnit)
     Supply = setinterpmethod(Supply, 'zoh');
 
     return
-    %}
+    
 
-    %% ORIGINAL/RAW SUPPLY DATA
+    %% ORIGINAL/RAW SUPPLY DATA (used for daily, now commented out)
     % This uses every data point from the original supply file.
-    Supply = timeseries(unit(supplyUnit)*supply.data(:,2), ...
-                        unit(timeUnit)*supply.data(:,1));
+    % Supply = timeseries(unit(supplyUnit)*supply.data(:,2), ...
+                       % unit(timeUnit)*supply.data(:,1));
 end
