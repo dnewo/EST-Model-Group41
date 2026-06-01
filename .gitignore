@@ -4,3 +4,6 @@
 *.slxc
 *.l
 simulink_cache.xml
+/EST.slx.autosave
+
+/slprj/
