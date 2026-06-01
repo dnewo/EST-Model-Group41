@@ -3,18 +3,24 @@
 
 %% Load the supply and demand data
 
-timeUnit   = 's';                    
+addpath("scripts")
+addpath("data")
+run("scripts/constants.m")
 
-supplyFile = 'Team41_supplyData.csv'; 
-supplyUnit = 'kW';                   
-% load the supply data
+%% Load the supply and demand data
+
+timeUnit = 's';
+
+supplyFile = fullfile("data", "Team41_supplyData.csv");
+supplyUnit = 'kW';
+
 Supply = loadSupplyData(supplyFile, timeUnit, supplyUnit);
 
-demandFile = 'Team41_demandData.csv'; 
-demandUnit = 'kW';                   
+demandFile = fullfile("data", "Team41_demandData.csv");
+demandUnit = 'kW';
 
-% load the demand data
 Demand = loadDemandData(demandFile, timeUnit, demandUnit);
+
 %% Simulation settings
 
 deltat = 5*unit("min");
@@ -131,3 +137,6 @@ U_pipe = 1.5;                         % W/(m^2 K)
 
 % Combined pipe heat-loss coefficient
 UA_pipe = U_pipe*A_pipe;              % [W/K]
+
+%% Fixes
+Max_Capacity_J = EStorageMax;
