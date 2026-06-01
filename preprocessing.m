@@ -3,20 +3,18 @@
 
 %% Load the supply and demand data
 
-timeUnit   = 's';
+timeUnit   = 's';                    
 
-supplyFile = "Team41_supplyData.csv";
-supplyUnit = "kW";
-
+supplyFile = 'Team41_supplyData.csv'; 
+supplyUnit = 'kW';                   
 % load the supply data
 Supply = loadSupplyData(supplyFile, timeUnit, supplyUnit);
 
-demandFile = "Team41_demandData.csv";
-demandUnit = "kW";
+demandFile = 'Team41_demandData.csv'; 
+demandUnit = 'kW';                   
 
 % load the demand data
 Demand = loadDemandData(demandFile, timeUnit, demandUnit);
-
 %% Simulation settings
 
 deltat = 5*unit("min");
