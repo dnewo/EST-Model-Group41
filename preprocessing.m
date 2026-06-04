@@ -78,16 +78,16 @@ U_tank = 1 / (1/h_inside + t_wall/k_steel + 1/h_outside);
 
 %sorption constants
 rho_bulk = 720*unit("kg")/unit("m3");           % *bulk density of sorption material.
-q_ads = 220*unit("kWh")/unit("m3");             % *storage density of sorption material. 
-X_max = 0.35;                                   % *maximum water loading of sorption material.      
-X_min = 0.02;                                   % *minimum water content from loss on drying of sorption material.
+q_ads = 357*unit("kWh")/unit("m3");             % *storage density of sorption material. 
+X_max = 0.48;                                   % *maximum water loading of sorption material.      
+X_min = 0.05;                                   % *minimum water content from loss on drying of sorption material.
 c_w = 4184*unit("J")/(unit("kg")*unit("K"));    % *specific heat capacity of water.
-c_ads = 900*unit("J")/(unit("kg")*unit("K"));   % *estimated specific heat capacity of sorption material.
-E = 4.09e4*unit("J")/unit("mol");               % *sorption material activation energy.
+c_ads = 920*unit("J")/(unit("kg")*unit("K"));   % *estimated specific heat capacity of sorption material.
+E = 4.06e4*unit("J")/unit("mol");               % *sorption material activation energy.
 R = 8.314*unit("J")/(unit("mol")*unit("K"));    % universal gas constant.
-D_0 = 2.54e-4*unit("m2")/unit("s");             % *diffusivity pre-exponential factor for sorption material. 
-d_p = 4e-3*unit("m");                           % *sorption material bead diameter
-deltaH = 2.38E6*unit("J")/unit("kg");           % *adsorption/desorption enthalpy for material. 
+D_0 = 2.65e-4*unit("m2")/unit("s");             % *diffusivity pre-exponential factor for sorption material. 
+d_p = 0.85e-3*unit("m");                           % *sorption material bead diameter
+deltaH = 2.579E6*unit("J")/unit("kg");           % *adsorption/desorption enthalpy for material. 
 
 %calculated constants
 V_ads = EStorageMax/q_ads;                      % volume of silica gel.
