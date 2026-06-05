@@ -11,12 +11,12 @@ run("scripts/constants.m")
 
 timeUnit = 's';
 
-supplyFile = fullfile("data", "Team41_supplyData.csv");
+supplyFile = 'data/Team41_supplyData.csv';
 supplyUnit = 'kW';
 
 Supply = loadSupplyData(supplyFile, timeUnit, supplyUnit);
 
-demandFile = fullfile("data", "Team41_demandData.csv");
+demandFile = 'data/Team41_demandData.csv';
 demandUnit = 'kW';
 
 Demand = loadDemandData(demandFile, timeUnit, demandUnit);
