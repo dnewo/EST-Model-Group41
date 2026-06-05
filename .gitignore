@@ -9,3 +9,9 @@ simulink_cache.xml
 /slprj/
 
 /Suppress.m
+
+/loadDemandData.m
+
+/loadSupplyData.m
+
+/unit.m

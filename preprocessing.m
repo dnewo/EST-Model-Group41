@@ -3,9 +3,9 @@
 
 %% Load the supply and demand data
 
-addpath("scripts")
-addpath("data")
-run("scripts/constants.m")
+addpath('scripts')
+addpath('data')
+run('scripts/constants.m')
 
 %% Load the supply and demand data
 
@@ -23,7 +23,7 @@ Demand = loadDemandData(demandFile, timeUnit, demandUnit);
 
 %% Simulation settings
 
-deltat = 5*unit("min");
+deltat = 5*unit('min');
 stopt  = min([Supply.Timeinfo.End, Demand.Timeinfo.End]);
 
 %% SYSTEM PARAMETERS
@@ -35,12 +35,12 @@ efficiencyBattery = 0.90;
 efficiencyHeater  = 1.00;  
 
 % Cable design assumptions
-L_cable = 20*unit("m");     % cable length from battery/PV system to heater
+L_cable = 20*unit('m');     % cable length from battery/PV system to heater
 V_system = 400;             % assumed DC voltage in V
 
 % Copper cable properties
 rho_copper = 1.72e-8;        % copper resistivity (at ~20 deg C) at Ohm m
-A_cable = 6e-6*unit("m2");   % 6mm^2 cross-section
+A_cable = 6e-6*unit('m2');   % 6mm^2 cross-section
 
 % Resistance per metre and total cable resistance
 Rprime_cable = rho_copper/A_cable;          
@@ -54,20 +54,20 @@ R_cable = L_cable*Rprime_cable;
 aInjection = 0; % Overall dissipation coefficient. This is ignored at the moment. 
 
 %overall and initial conditions
-EStorageMax     = 7000*unit("kWh");             % *Maximum energy
-EStorageMin     = 0.0*unit("kWh");              % Minimum energy
-EStorageInitial = 2.0*unit("kWh");              % Initial energy
+EStorageMax     = 7000*unit('kWh');             % *Maximum energy
+EStorageMin     = 0.0*unit('kWh');              % Minimum energy
+EStorageInitial = 2.0*unit('kWh');              % Initial energy
 
 
-T_ambient = (8+273.15)*unit("K");            % *expected ambient temperature
-T_w = (50+273.15)*unit("K");                    % *average temperature of water in supply and return flows
+T_ambient = (8+273.15)*unit('K');            % *expected ambient temperature
+T_w = (50+273.15)*unit('K');                    % *average temperature of water in supply and return flows
 T_s_0 = T_ambient;                              % *initial sorbent temperature.
 
 %tank constants
 f_space = 1.2;                                  % *extra space factor for vapour flow, heat exchanger components, and packing imperfections
-t_wall = 0.005*unit("m");                       % *tank wall thickness
-rho_tank = 7850*unit("kg")/unit("m3");          % *density of tank wall material (steel in this case)
-c_tank = 502*unit("J")/(unit("kg")*unit("K"));  % *estimated specific heat capacity of steel 304 that forms the tank.
+t_wall = 0.005*unit('m');                       % *tank wall thickness
+rho_tank = 7850*unit('kg')/unit('m3');          % *density of tank wall material (steel in this case)
+c_tank = 502*unit('J')/(unit('kg')*unit('K'));  % *estimated specific heat capacity of steel 304 that forms the tank.
 
 %thermal conductivities of reactor
 k_steel = 16.3;                                 % W/(m K), thermal conductivity of stainless steel 304
@@ -77,17 +77,17 @@ h_outside = 5;                                  % W/(m^2 K), natural convection 
 U_tank = 1 / (1/h_inside + t_wall/k_steel + 1/h_outside);
 
 %sorption constants
-rho_bulk = 720*unit("kg")/unit("m3");           % *bulk density of sorption material.
-q_ads = 357*unit("kWh")/unit("m3");             % *storage density of sorption material. 
+rho_bulk = 720*unit('kg')/unit('m3');           % *bulk density of sorption material.
+q_ads = 357*unit('kWh')/unit('m3');             % *storage density of sorption material. 
 X_max = 0.48;                                   % *maximum water loading of sorption material.      
 X_min = 0.05;                                   % *minimum water content from loss on drying of sorption material.
-c_w = 4184*unit("J")/(unit("kg")*unit("K"));    % *specific heat capacity of water.
-c_ads = 920*unit("J")/(unit("kg")*unit("K"));   % *estimated specific heat capacity of sorption material.
-E = 4.06e4*unit("J")/unit("mol");               % *sorption material activation energy.
-R = 8.314*unit("J")/(unit("mol")*unit("K"));    % universal gas constant.
-D_0 = 2.65e-4*unit("m2")/unit("s");             % *diffusivity pre-exponential factor for sorption material. 
-d_p = 0.85e-3*unit("m");                           % *sorption material bead diameter
-deltaH = 2.579E6*unit("J")/unit("kg");           % *adsorption/desorption enthalpy for material. 
+c_w = 4184*unit('J')/(unit('kg')*unit('K'));    % *specific heat capacity of water.
+c_ads = 920*unit('J')/(unit('kg')*unit('K'));   % *estimated specific heat capacity of sorption material.
+E = 4.06e4*unit('J')/unit('mol');               % *sorption material activation energy.
+R = 8.314*unit('J')/(unit('mol')*unit('K'));    % universal gas constant.
+D_0 = 2.65e-4*unit('m2')/unit('s');             % *diffusivity pre-exponential factor for sorption material. 
+d_p = 0.85e-3*unit('m');                           % *sorption material bead diameter
+deltaH = 2.579E6*unit('J')/unit('kg');           % *adsorption/desorption enthalpy for material. 
 
 %calculated constants
 V_ads = EStorageMax/q_ads;                      % volume of silica gel.
@@ -126,8 +126,8 @@ UA_exchanger = U_exchanger*A_exchanger;  % in W/K
 %% Transport to demand, pipe heat loss model
 
 % Pipe geometry assumptions
-L_pipe = 20*unit("m");                % m, estimated pipe length to demand
-d_pipe = 0.025*unit("m");             % m, outer pipe diameter
+L_pipe = 20*unit('m');                % m, estimated pipe length to demand
+d_pipe = 0.025*unit('m');             % m, outer pipe diameter
 
 % Pipe surface area
 A_pipe = pi*d_pipe*L_pipe;            % m^2
