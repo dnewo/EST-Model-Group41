@@ -140,3 +140,9 @@ UA_pipe = U_pipe*A_pipe;              % [W/K]
 
 %% Fixes
 Max_Capacity_J = EStorageMax;
+
+%Parameters for heat exchange function for a dynamic t_w
+UA_exchanger = 1500;
+T_in = (45 + 273.15)*unit("K");
+m_dot_water = 0.1;
+cp_water = 4184;
